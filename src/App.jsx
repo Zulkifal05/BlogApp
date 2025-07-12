@@ -2,7 +2,7 @@ import React from 'react'
 
 const App = () => {
   return (
-    <div>Assalam o Allaikum!</div>
+    <div>Hi! What's up</div>
   )
 }
 
