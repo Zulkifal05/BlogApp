@@ -1,9 +1,10 @@
 import React from 'react'
-import Appwrite from './conf/config'
+import Appwrite from './conf/Config'
+import Header from './components/Header'
 
 const App = () => {
   return (
-    <div>Hi! What's up</div>
+    <Header />
   )
 }
 
