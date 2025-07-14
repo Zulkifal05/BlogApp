@@ -1,4 +1,5 @@
 import React from 'react'
+import Appwrite from './conf/config'
 
 const App = () => {
   return (
@@ -6,4 +7,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App 
