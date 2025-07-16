@@ -6,7 +6,10 @@ import { login } from '../store/AuthSlice';
 import { Link, useNavigate } from "react-router-dom"
 
 const Signup = () => {
-    let {register,handleSubmit} = useForm();
+    let {register,
+        handleSubmit,
+        formState : {errors}
+    } = useForm();
     let despatch = useDispatch();
     let navigate = useNavigate();
     let [error,setError] = useState("");
@@ -32,34 +35,44 @@ const Signup = () => {
 
   return (
     <>
-        <div className='flex h-[60vh] bg mt-10 justify-center'>
+        <div className='flex h-[70vh] bg mt-10 justify-center'>
             <form onSubmit={handleSubmit(Create)} className='border-2 border-blue-500 flex flex-col w-[25%] h-[100%] items-center justify-center gap-3 rounded-2xl p-3'>
                 <h1 className='font-bold text-blue-500 text-3xl'>Sign Up</h1>
+                
                 <input
                  className='border-2 border-blue-500 outline-none px-[13%] py-2 rounded-xl'
                  type="text"
                  placeholder='Name'
                  {...register("name",{
-                    required : true,
+                    required : "Name is Required",
                  })}/>
+                {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
 
                 <input
                  className='border-2 border-blue-500 outline-none px-[13%] py-2 rounded-xl'
                  type="text"
                  placeholder='Email'
                  {...register("email",{
-                    required : true,
+                    required : "Email is Required",
+                    pattern: {
+                        value: /^\S+@\S+$/i,
+                        message: "Invalid email address",
+                    },
                  })}/>
+                 {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
 
                 <input
                  className='border-2 border-blue-500 outline-none px-[13%] py-2 rounded-xl'
                  type="text" 
                  placeholder='Password'
-                 autoComplete='Add New Password'
                  {...register("password",{
-                    required : true,
-                    minLength : 8
+                    required : "Password is required",
+                    minLength : {
+                        value : 8,
+                        message : "Password Must Be Atleast 8 Characters"
+                    }
                  })}/>
+                 {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
 
                  <div className='flex items-center justify-center gap-2'>
                     <p className='text-gray-500 font-bold'>If Already Have Account then</p>

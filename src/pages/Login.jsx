@@ -6,7 +6,10 @@ import { useDispatch } from 'react-redux';
 import { login } from '../store/AuthSlice';
 
 const Login = () => {
-  let {register,handleSubmit} = useForm();
+  let {register,
+      handleSubmit,
+      formState : {errors}
+  } = useForm();
   let navigate = useNavigate()
   let dispatch = useDispatch();
   let [error,setError] = useState("");
@@ -43,17 +46,26 @@ const Login = () => {
                  type="text"
                  placeholder='Email'
                  {...register("email",{
-                    required : true,
+                    required : "Email is Required",
+                    pattern: {
+                      value: /^\S+@\S+$/i,
+                      message: "Invalid email address",
+                    },
                  })}/>
+                {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
 
                 <input
                  className='border-2 border-blue-500 outline-none px-[13%] py-2 rounded-xl'
                  type="text" 
                  placeholder='Password'
                  {...register("password",{
-                    required : true,
-                    minLength : 8
+                    required : "Password is Required",
+                    minLength : {
+                      value : 8,
+                      message : "Password Must Be Atleast 8 Characters"
+                    }
                  })}/>
+                 {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
 
                  <div className='flex items-center justify-center gap-2'>
                     <p className='text-gray-500 font-bold'>If You Don't Have Account Already</p>
