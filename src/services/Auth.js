@@ -6,13 +6,13 @@ class AppwriteAuthService {
     account;
 
     constructor() {
-        this.client.setProject(Appwrite.ProjectID);
+        this.client.setEndpoint(Appwrite.EndPoint).setProject(Appwrite.ProjectID);
         this.account = new Account(this.client);
     }
 
-    async CreateAccount(email,password,name) {
+    async CreateAccount({email,password,name}) {
         try {
-            let response = await this.account.create(ID.unique , email , password , name);
+            let response = await this.account.create(ID.unique() , email , password , name);
             if(response) {
                 return this.Login({email , password});
             }
