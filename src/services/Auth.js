@@ -21,7 +21,8 @@ class AppwriteAuthService {
             }
         }
         catch(error) {
-            throw error;
+            console.log("An Error Occured : ",error);
+            return false;
         }
     }
 
@@ -29,7 +30,8 @@ class AppwriteAuthService {
         try {
             return await this.account.createEmailPasswordSession(email , password);
         } catch (error) {
-            throw error;
+            console.log("An Error Occured : ",error);
+            return false;
         }
     }
 
@@ -37,7 +39,8 @@ class AppwriteAuthService {
         try {
             return await this.account.deleteSessions();
         } catch (error) {
-            throw error;
+            console.log("An Error Occured : ",error);
+            return false;
         }
     }
 
@@ -45,7 +48,7 @@ class AppwriteAuthService {
         try {
             return await this.account.get();
         } catch (error) {
-            throw error;
+            console.log("An Error Occured : ",error);
         }
         return null;
     }
