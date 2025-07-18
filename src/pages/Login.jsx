@@ -37,12 +37,12 @@ const Login = () => {
 
   return (
     <>
-        <div className='flex h-[50vh] bg mt-10 justify-center'>
-            <form onSubmit={handleSubmit(GetLogedIn)} className='border-2 border-blue-500 flex flex-col w-[30%] h-[100%] items-center justify-center gap-3 rounded-2xl p-3'>
-                <h1 className='font-bold text-blue-500 text-3xl'>Sign In</h1>
+        <div className='flex h-[55vh] bg mt-15 justify-center'>
+            <form onSubmit={handleSubmit(GetLogedIn)} className='border-3 border-gray-800 flex flex-col w-[30%] h-[100%] items-center justify-center gap-3 rounded-2xl p-3'>
+                <h1 className='font-bold text-gray-800 text-3xl'>Sign In</h1>
 
                 <input
-                 className='border-2 border-blue-500 outline-none px-[13%] py-2 rounded-xl'
+                 className='border-2 border-gray-800 outline-none px-[13%] py-2 rounded-xl'
                  type="text"
                  placeholder='Email'
                  {...register("email",{
@@ -55,7 +55,7 @@ const Login = () => {
                 {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
 
                 <input
-                 className='border-2 border-blue-500 outline-none px-[13%] py-2 rounded-xl'
+                 className='border-2 border-gray-800 outline-none px-[13%] py-2 rounded-xl'
                  type="text" 
                  placeholder='Password'
                  {...register("password",{
@@ -69,12 +69,12 @@ const Login = () => {
 
                  <div className='flex items-center justify-center gap-2'>
                     <p className='text-gray-500 font-bold'>If You Don't Have Account Already</p>
-                    <Link to="/Signup" className='font-bold text-blue-500 underline'>Sign In</Link>
+                    <Link to="/Signup" className='font-bold text-gray-800 underline'>Sign Up</Link>
                  </div>
 
                  {error && <p className='text-red-500'>{error}</p>}
 
-                 <button type='submit' className='bg-blue-500 font-bold text-white py-2 px-[5%] rounded-xl cursor-pointer hover:bg-white hover:text-blue-500 hover:outline-2 hover:outline-blue-500'>Sign In</button>
+                 <button type='submit' className='bg-gray-800 font-bold text-white py-3 px-[7%] rounded-xl cursor-pointer hover:bg-white hover:text-gray-800 hover:outline-2 hover:outline-gray-800'>Sign In</button>
             </form>
         </div>
     </>
