@@ -1,15 +1,28 @@
 import React from 'react'
-import { Link } from "react-router-dom"
+import { NavLink , Link, useLocation } from "react-router-dom"
+import LogoutBtn from "./LogoutBtn"
 
 const Header = () => {
+  let location = useLocation();
+
   return (
-    <div>
-        <div className='bg-violet-500 h-15 flex items-center justify-center'>
-            <h1 className='font-bold text-white text-2xl'>Blog App</h1>
-        </div>
-        <div>
-            
-        </div>
+    <div className='bg-gray-800 h-20 flex items-center justify-evenly'>
+      <div className='flex justify-center items-center grow-1'>
+           <Link to="/">
+              <h1 className='font-bold text-orange-500 text-4xl cursor-pointer'>Blogify</h1>
+           </Link>
+      </div>
+      <div className='grow-2 flex items-center justify-evenly text-white font-bold text-xl'>
+          {location.pathname !== "/My-Posts" && <NavLink to="/My-Posts">
+            <button className='cursor-pointer'>My Posts</button>
+          </NavLink>}
+          {location.pathname !== "/Create-Post" && <NavLink to="/Create-Post" >
+            <button className='cursor-pointer'>Create Post</button>
+          </NavLink>}
+          <div className='flex justify-center items-center'>
+            <LogoutBtn />
+          </div>
+      </div>
     </div>
   )
 }
