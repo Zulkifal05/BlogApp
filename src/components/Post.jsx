@@ -1,21 +1,35 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
+import AuthService from '../services/Auth';
+import PostsService from '../services/Posts';
 
-const Post = () => {
-  let [showFullPost,setShowFullPost] = useState(false);
+const Post = ({post}) => {
   let [isAuthor,setIsAuthor] = useState(false);
+  let [Username,setUsername] = useState("");
+
+  // let logedInUserID = useSelector((state) => state.auth.userData?.$id)
+  let logedInUserID = "6877aa90001cbf79495e";
+
+  useEffect(() => {
+    if(logedInUserID === post.UserID) {
+      setIsAuthor(true);
+    }
+    else {
+      setIsAuthor(false);
+    }
+  }, [post]);  
 
   return (
     <>
-      <div className='max-w-[30%] min-w-[330px] bg-gray-500 max-h-130 p-3 rounded-2xl'>
-        <img src="https://images.pexels.com/photos/31682132/pexels-photo-31682132.jpeg" className='h-50 w-[100%] rounded-2xl'/>
-        <p className='font-bold text mt-3 text-gray-800'>By <span className='text-black'>Name</span></p>
-        <h1 className='font-bold text-3xl text-center text-black'>Title</h1>
-        <p className='font-bold text-gray-800'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores quas numquam molestias laudantium accusantium. Molestiae, nostrum ullam maxime repellat autem, aspernatur provident nulla quaerat sequi laboriosam iste sapiente sint animi.</p>
-        <div className='flex justify-center items-center mt-3 gap-5'>
-          {showFullPost && <button className='bg-green-500 py-2 px-5 text-xl font-bold rounded-xl cursor-pointer hover:outline-2 hover:outline-black hover:bg-gray-500'>Full Post</button>}
-          {isAuthor && <button className='bg-orange-500 py-2 px-5 text-xl font-bold rounded-xl cursor-pointer hover:outline-2 hover:outline-black hover:bg-gray-500'>Edit</button>}
+      <div className='max-w-[30%] min-w-[330px] bg-gray-500 h-140 p-3 rounded-2xl'>
+          <img src={PostsService.FilePreview(post.FeaturedImage)} alt = "Post Image" className='h-50 w-[100%] rounded-2xl'/>
+          <p className='font-bold text mt-3 text-gray-800'>By <span className='text-black'>{post.UserName}</span></p>
+          <h1 className='font-bold text-3xl text-center text-black'>{post.Title}</h1>
+          <p className='font-bold text-gray-800'>{post.Content}</p>
+          <div className='flex justify-center items-center mt-3'>
+            {isAuthor && <button className='bg-black py-2 px-5 text-xl text-white font-bold rounded-xl cursor-pointer hover:outline-2 hover:outline-black hover:bg-gray-500 hover:text-black'>Edit</button>}
+          </div>
         </div>
-      </div>
     </>
   )
 }

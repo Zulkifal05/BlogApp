@@ -52,6 +52,15 @@ class AppwriteAuthService {
         }
         return null;
     }
+
+    async GetUser(ID) {
+        try {
+            return await this.account.get(ID);
+        } catch (error) {
+            console.log("An Error Occured : ",error);
+        }
+        return null;
+    }
 }
 
 let AuthService = new AppwriteAuthService();

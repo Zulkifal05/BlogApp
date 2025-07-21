@@ -14,7 +14,7 @@ class Posts {
         this.bucket = new Storage(this.client);
     }
 
-    async CreatePost({Title,Content,FeaturedImage,ID}) {
+    async CreatePost({Title,Content,FeaturedImage,UserID,UserName}) {
         try {
             return await this.databases.createDocument(
                 Appwrite.DataBaseID,
@@ -24,7 +24,8 @@ class Posts {
                     Title,
                     Content,
                     FeaturedImage,
-                    ID
+                    UserID,
+                    UserName
                 }
             )
         } catch (error) {
@@ -129,10 +130,10 @@ class Posts {
     }
 
     FilePreview(fileId){
-        return this.bucket.getFilePreview(
+        return this.bucket.getFileView(
             Appwrite.BucketID,
             fileId
-        )
+        );
     }
 }
 
