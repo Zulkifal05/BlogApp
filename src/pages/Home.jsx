@@ -13,11 +13,12 @@ const Home = () => {
 
   useEffect(() => {
     async function FetchAllPosts() {
+      setIsLoading(true);
       if(postsReduxData.postsFetchedStatus) {
+        setIsLoading(false);
         setPosts(postsReduxData.postsFetched);
       }
       else {
-        setIsLoading(true);
         let resp = await PostsService.GetPosts();
         if(resp) {
           setPosts(resp.documents);
@@ -31,7 +32,7 @@ const Home = () => {
   },[postsReduxData])
 
   if(isLoading) return <Container>
-    <p className='font-bold text-gray-800 text-2xl'>Loading.....</p>
+    <p className='font-bold text-gray-800 text-2xl'>Loading Posts.....</p>
   </Container>
 
   if(posts.length === 0) return <Container>

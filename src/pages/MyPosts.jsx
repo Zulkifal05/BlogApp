@@ -1,29 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import Post from '../components/Post'
-import PostsService from '../services/Posts';
-import { useSelector } from 'react-redux';
-import Container from '../components/Container';
+import PostsService from '../services/Posts'
+import { useDispatch, useSelector } from 'react-redux'
+import Container from '../components/Container'
+import { addUserPosts } from "../store/PostsSlice"
 
 const MyPosts = () => {
     let [myPosts,setMyPosts] = useState([]);
     let [isLoading,setIsloading] = useState(true);
-    let loggedInUserID = useSelector((state) => state.auth.userData?.$id)
+    let dispatch = useDispatch();
+    let loggedInUserID = useSelector((state) => state.auth.userData?.$id);
+    let userPostsReduxData = useSelector((state) => state.posts);
+
 
     useEffect(() => {
         async function FetchUserPosts() {
             setIsloading(true);
-            let userPosts = await PostsService.GetPosts(loggedInUserID);
-            if(userPosts) {
-                setMyPosts(userPosts.documents);
+            if(userPostsReduxData.userPostsFetchedStatus) {
+                setMyPosts(userPostsReduxData.userPostsFetched);
                 setIsloading(false);
+            }
+            else {
+                let userPosts = await PostsService.GetPosts(loggedInUserID);
+                if(userPosts) {
+                    dispatch(addUserPosts(userPosts.documents));
+                    setMyPosts(userPosts.documents);
+                    setIsloading(false);
+                }
             }
         }
 
         FetchUserPosts()
-    },[loggedInUserID])
+    },[loggedInUserID , userPostsReduxData])
 
     if(isLoading) return <Container>
-        <p className='font-bold text-gray-800 text-2xl'>Loading.....</p>
+        <p className='font-bold text-gray-800 text-2xl'>Loading Posts.....</p>
     </Container>
 
     if(myPosts.length === 0) return <Container>

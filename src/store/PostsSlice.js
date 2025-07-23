@@ -1,8 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { act } from "react";
 
 let initialState = {
     postsFetchedStatus : false,
-    postsFetched : null
+    postsFetched : null,
+    userPostsFetched : null,
+    userPostsFetchedStatus : false
 }
 
 let postsSlice = createSlice({
@@ -16,9 +19,15 @@ let postsSlice = createSlice({
         removePosts : (state) => {
             state.postsFetchedStatus = false;
             state.postsFetched = null;
+            state.userPostsFetched = null;
+            state.userPostsFetchedStatus = false;
+        },
+        addUserPosts : (state , action) => {
+            state.userPostsFetchedStatus = true;
+            state.userPostsFetched = action.payload;
         }
     }
 })
 
-export const { addPosts , removePosts } = postsSlice.actions;
+export const { addPosts , removePosts , addUserPosts } = postsSlice.actions;
 export default postsSlice.reducer;

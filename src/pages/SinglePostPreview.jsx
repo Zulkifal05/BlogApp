@@ -9,15 +9,16 @@ const SinglePostPreview = () => {
 
     useEffect(() => {
         if(state.post) {
+            console.log(state.post)
             setPreviewPost(state.post)
         }
-    },[state.post])
+    },[state])
 
     return (
         <>
-            <Container>
+            {previewPost && <Container>
                 <Post post={previewPost} key={previewPost.$id}/>
-            </Container>
+            </Container>}
         </>
     )
 }

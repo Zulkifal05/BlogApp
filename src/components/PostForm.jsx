@@ -1,28 +1,44 @@
-import React, { useId } from 'react'
+import React, { useId , useEffect, useState } from 'react'
 import { useForm } from "react-hook-form"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import PostsService from '../services/Posts'
 import { useNavigate } from 'react-router-dom'
+import { removePosts } from "../store/PostsSlice"
 
 const PostForm = ({post}) => {
   let ID1 = useId();
   let ID2 = useId();
   let ID3 = useId();
+  let dispatch = useDispatch();
 
+  let [previousImgURL,setPreviousImgURL] = useState("#");
   let currentUserID = useSelector((state) => state.auth.userData?.$id);
   let currentUserName = useSelector((state) => state.auth.userData?.name);
   let navigate = useNavigate()
 
-  let { register , handleSubmit , formState : {errors} } = useForm({
+  let { register , handleSubmit , formState : {errors} , reset } = useForm({
         defaultValues : {
           Title : post?.Title || "",
-          Content : post?.Content || "",
-          UserID : post?.$id || ""
+          Content : post?.Content || ""
         }
       });
 
+  //For post values if they arrive late
+  useEffect(() => {
+    if (post) {
+      reset({
+        Title: post.Title,
+        Content: post.Content
+      });
+
+      if (post.FeaturedImage) {
+        const fileUrl = PostsService.FilePreview(post.FeaturedImage);
+        setPreviousImgURL(fileUrl);
+      }
+    }
+  }, [ post , reset ]);
+
   async function DeletePost() {
-    console.log("Post deleted!")
     let response = await PostsService.DeleteFile(post.FeaturedImage);
     if(response) {
       let resp = await PostsService.DeletePost(post.$id);
@@ -44,6 +60,7 @@ const PostForm = ({post}) => {
       let updateResponse = await PostsService.UpdatePost(post.$id,{...data , FeaturedImage : updateImg ? updateImg.$id : post.FeaturedImage});
 
       if(updateResponse) {
+        dispatch(removePosts());
         navigate(`/Post/${updateResponse.$id}`, { state : { post : updateResponse} })
       }
     }
@@ -56,6 +73,7 @@ const PostForm = ({post}) => {
         let createdPost = await PostsService.CreatePost({...data , UserID : currentUserID , UserName : currentUserName});
 
         if(createdPost) {
+          dispatch(removePosts());
           navigate(`/Post/${createdPost.$id}` , { state : { post : createdPost } })
         }
       }
@@ -100,9 +118,9 @@ const PostForm = ({post}) => {
         {errors.FeaturedImage && <p className='text-red-500 text-center'>{errors.FeaturedImage.message}</p>}
       </div>
       {post && <div className='p-3'>
-          <img src="https://images.pexels.com/photos/418831/pexels-photo-418831.jpeg" alt="Preivous Image" className='h-50 rounded-xl'/>
+          <img src={previousImgURL} alt="Preivous Image" className='h-50 rounded-xl'/>
         </div>}
-      <div className='flex items-center justify-between'>
+      <div className={`flex items-center ${post ? "justify-between" : "justify-end"}`}>
         {post && <button onClick={DeletePost} className='bg-red-700 text-white font-bold py-2 px-5 mt-3 text-2xl rounded-xl cursor-pointer hover:bg-white hover:text-red-700 hover:outline-2 hover:outline-red-700'>Delete Post</button>}
         <button type='submit' className='bg-orange-600 text-white font-bold py-2 px-5 mt-3 text-2xl rounded-xl cursor-pointer hover:bg-white hover:text-orange-600 hover:outline-2 hover:outline-orange-600'>{post ? "Update" : "Post"}</button>
       </div>

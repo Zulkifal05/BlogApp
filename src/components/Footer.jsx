@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div className='bg-gray-800 font-bold text-white min-h-30 flex flex-col items-center p-3 mt-5'>
+    <div className='bg-gray-800 font-bold text-white min-h-33 flex flex-col items-center p-3 mt-5'>
       <div>
         <p>Developed By <span className='text-lg text-orange-500'>Syed Zulkifal Ali Shah Bokhary</span></p>
         <p className='text-center'>Contact Me At</p>

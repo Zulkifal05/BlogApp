@@ -2,15 +2,18 @@ import React from 'react'
 import AuthService from '../services/Auth';
 import { useDispatch, useSelector } from "react-redux"
 import { logout } from '../store/AuthSlice';
+import { useNavigate } from 'react-router-dom';
 
 const LogoutBtn = () => {
     let dispatch = useDispatch();
+    let navigate = useNavigate();
 
     async function HandleLogOut() {
         try {
             let response = await AuthService.Logout();
             if(response) {
                 dispatch(logout());
+                navigate("/Signup")
             }
         } catch (error) {
             console.log("An Error Occured : ",error);

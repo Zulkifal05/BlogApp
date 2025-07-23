@@ -21,8 +21,7 @@ class AppwriteAuthService {
             }
         }
         catch(error) {
-            console.log("An Error Occured : ",error);
-            return false;
+            throw error;
         }
     }
 
@@ -30,8 +29,7 @@ class AppwriteAuthService {
         try {
             return await this.account.createEmailPasswordSession(email , password);
         } catch (error) {
-            console.log("An Error Occured : ",error);
-            return false;
+            throw error;
         }
     }
 
