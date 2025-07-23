@@ -4,13 +4,15 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import  Login  from "./pages/Login"
 import CreatePost from './pages/CreatePost'
+import EditPost from "./pages/EditPost"
 
 const App = () => {
 
   return (
     <>
       <Header />
-      <Home />
+      {/* <EditPost /> */}
+      {/* <Home /> */}
       {/* <Login /> */}
       {/* <CreatePost /> */}
       {/* <Login /> */}

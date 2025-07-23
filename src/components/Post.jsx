@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import AuthService from '../services/Auth';
 import PostsService from '../services/Posts';
+import { useNavigate } from "react-router-dom"
 
 const Post = ({post}) => {
   let [isAuthor,setIsAuthor] = useState(false);
   let [Username,setUsername] = useState("");
+  let navigate = useNavigate()
 
   // let logedInUserID = useSelector((state) => state.auth.userData?.$id)
   let logedInUserID = "6877aa90001cbf79495e";
+  //Above is userID given of logedin user for testing only later will be removed
 
   useEffect(() => {
     if(logedInUserID === post.UserID) {
@@ -17,7 +20,11 @@ const Post = ({post}) => {
     else {
       setIsAuthor(false);
     }
-  }, [post]);  
+  }, [post]);
+
+  function EditPostClickHandler() {
+    navigate("/Edit-Post" , { state : {post}});
+  }
 
   return (
     <>
@@ -27,7 +34,7 @@ const Post = ({post}) => {
           <h1 className='font-bold text-3xl text-center text-black'>{post.Title}</h1>
           <p className='font-bold text-gray-800'>{post.Content}</p>
           <div className='flex justify-center items-center mt-3'>
-            {isAuthor && <button className='bg-black py-2 px-5 text-xl text-white font-bold rounded-xl cursor-pointer hover:outline-2 hover:outline-black hover:bg-gray-500 hover:text-black'>Edit</button>}
+            {isAuthor && <button onClick={EditPostClickHandler} className='bg-black py-2 px-5 text-xl text-white font-bold rounded-xl cursor-pointer hover:outline-2 hover:outline-black hover:bg-gray-500 hover:text-black'>Edit</button>}
           </div>
         </div>
     </>

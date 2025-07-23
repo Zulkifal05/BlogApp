@@ -13,10 +13,7 @@ const PostForm = ({post}) => {
   let currentUserName = useSelector((state) => state.auth.userData?.name);
   let navigate = useNavigate()
 
-  let { register,
-        handleSubmit,
-        formState : {errors}
-      } = useForm({
+  let { register , handleSubmit , formState : {errors} } = useForm({
         defaultValues : {
           Title : post?.Title || "",
           Content : post?.Content || "",
@@ -24,16 +21,43 @@ const PostForm = ({post}) => {
         }
       });
 
+  async function DeletePost() {
+    console.log("Post deleted!")
+    let response = await PostsService.DeleteFile(post.FeaturedImage);
+    if(response) {
+      let resp = await PostsService.DeletePost(post.$id);
+      if(resp) {
+        navigate("/")
+      }
+    }
+  }
+
   async function handlePostSubmit(data) {
     if(post) {
       //Here logic of post update
+      let updateImg = data.FeaturedImage[0] ? await PostsService.UploadFile(data.FeaturedImage[0]) : null;
+
+      if(updateImg) {
+        await PostsService.DeleteFile(post.FeaturedImage);
+      }
+
+      let updateResponse = await PostsService.UpdatePost(post.$id,{...data , FeaturedImage : updateImg ? updateImg.$id : post.FeaturedImage});
+
+      if(updateResponse) {
+        navigate(`/Post/${updateResponse.$id}`)
+      }
     }
     else {
+      //Here logic of post creation
       let image = await PostsService.UploadFile(data.FeaturedImage[0]);
+
       if(image) {
         data.FeaturedImage = image.$id;
-        let post = await PostsService.CreatePost({...data , UserID : currentUserID , UserName : currentUserName});
-        navigate(`/Post/${post.$id}`)
+        let createdPost = await PostsService.CreatePost({...data , UserID : currentUserID , UserName : currentUserName});
+
+        if(createdPost) {
+          navigate(`/Post/${createdPost.$id}`)
+        }
       }
     }
   }
@@ -61,18 +85,26 @@ const PostForm = ({post}) => {
         {errors.Content && <p className='text-red-500 text-center'>{errors.Content.message}</p>}
       </div>
       <div className='mt-3 flex items-center gap-2'>
-        <label htmlFor={ID3} className='font-bold text-2xl'>Upload Picture</label>
+        <label htmlFor={ID3} className='font-bold text-2xl'>{post ? "Upload New Picture" : "Upload Picture"}</label>
         <input type="file"
                id={ID3} 
+               accept="image/png, image/jpg, image/jpeg, image/gif"
                className='bg-gray-800 mt-1 px-1 w-50 text-white rounded-2xl cursor-pointer'
                {...register("FeaturedImage",{
-                required : "Image is Required!"
+                required : {
+                  value : !post,
+                  message : "Image is Required"
+                }
                })}
                />
         {errors.FeaturedImage && <p className='text-red-500 text-center'>{errors.FeaturedImage.message}</p>}
       </div>
-      <div className='flex items-center justify-end'>
-        <button type='submit' className='bg-orange-600 text-white font-bold py-2 px-5 mt-3 text-2xl rounded-xl cursor-pointer hover:bg-white hover:text-orange-600 hover:outline-2 hover:outline-orange-600'>Post</button>
+      {post && <div className='p-3'>
+          <img src="https://images.pexels.com/photos/418831/pexels-photo-418831.jpeg" alt="Preivous Image" className='h-50 rounded-xl'/>
+        </div>}
+      <div className='flex items-center justify-between'>
+        {post && <button onClick={DeletePost} className='bg-red-700 text-white font-bold py-2 px-5 mt-3 text-2xl rounded-xl cursor-pointer hover:bg-white hover:text-red-700 hover:outline-2 hover:outline-red-700'>Delete Post</button>}
+        <button type='submit' className='bg-orange-600 text-white font-bold py-2 px-5 mt-3 text-2xl rounded-xl cursor-pointer hover:bg-white hover:text-orange-600 hover:outline-2 hover:outline-orange-600'>{post ? "Update" : "Post"}</button>
       </div>
     </form>
   )
