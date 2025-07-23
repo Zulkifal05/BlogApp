@@ -6,12 +6,14 @@ import  Login  from "./pages/Login"
 import CreatePost from './pages/CreatePost'
 import EditPost from "./pages/EditPost"
 import MyPosts from './pages/MyPosts'
+import SinglePostPreview from './pages/SinglePostPreview'
 
 const App = () => {
 
   return (
     <>
       <Header />
+      {/* <SinglePostPreview /> */}
       {/* <EditPost /> */}
       {/* <Home /> */}
       {/* <MyPosts /> */}

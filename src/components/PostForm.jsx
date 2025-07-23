@@ -44,7 +44,7 @@ const PostForm = ({post}) => {
       let updateResponse = await PostsService.UpdatePost(post.$id,{...data , FeaturedImage : updateImg ? updateImg.$id : post.FeaturedImage});
 
       if(updateResponse) {
-        navigate(`/Post/${updateResponse.$id}`)
+        navigate(`/Post/${updateResponse.$id}`, { state : { post : updateResponse} })
       }
     }
     else {
@@ -56,7 +56,7 @@ const PostForm = ({post}) => {
         let createdPost = await PostsService.CreatePost({...data , UserID : currentUserID , UserName : currentUserName});
 
         if(createdPost) {
-          navigate(`/Post/${createdPost.$id}`)
+          navigate(`/Post/${createdPost.$id}` , { state : { post : createdPost } })
         }
       }
     }
