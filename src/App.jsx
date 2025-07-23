@@ -14,7 +14,7 @@ const App = () => {
       <Header />
       {/* <EditPost /> */}
       {/* <Home /> */}
-      <MyPosts />
+      {/* <MyPosts /> */}
       {/* <Login /> */}
       {/* <CreatePost /> */}
       {/* <Login /> */}

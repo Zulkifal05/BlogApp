@@ -77,10 +77,10 @@ class Posts {
             else {  //If user has provided ID so fetching only given ID's posts
                 return await this.databases.listDocuments(
                     Appwrite.DataBaseID,
-                    Appwrite.CollectionID
+                    Appwrite.CollectionID,
                     [
-                        Query.equal('ID', [ID])
-                    ]
+                        Query.equal('UserID', ID)
+                    ],
                 )
             }
         } catch (error) {

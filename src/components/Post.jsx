@@ -9,10 +9,8 @@ const Post = ({post}) => {
   let [Username,setUsername] = useState("");
   let navigate = useNavigate()
 
-  // let logedInUserID = useSelector((state) => state.auth.userData?.$id)
-  let logedInUserID = "6877aa90001cbf79495e";
-  //Above is userID given of logedin user for testing only later will be removed
-
+  let logedInUserID = useSelector((state) => state.auth.userData?.$id)
+  
   useEffect(() => {
     if(logedInUserID === post.UserID) {
       setIsAuthor(true);
