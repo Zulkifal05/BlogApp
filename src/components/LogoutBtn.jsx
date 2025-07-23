@@ -3,6 +3,7 @@ import AuthService from '../services/Auth';
 import { useDispatch, useSelector } from "react-redux"
 import { logout } from '../store/AuthSlice';
 import { useNavigate } from 'react-router-dom';
+import { removePosts } from '../store/PostsSlice';
 
 const LogoutBtn = () => {
     let dispatch = useDispatch();
@@ -13,6 +14,7 @@ const LogoutBtn = () => {
             let response = await AuthService.Logout();
             if(response) {
                 dispatch(logout());
+                dispatch(removePosts());
                 navigate("/Signup")
             }
         } catch (error) {

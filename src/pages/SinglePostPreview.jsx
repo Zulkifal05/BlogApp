@@ -9,7 +9,6 @@ const SinglePostPreview = () => {
 
     useEffect(() => {
         if(state.post) {
-            console.log(state.post)
             setPreviewPost(state.post)
         }
     },[state])

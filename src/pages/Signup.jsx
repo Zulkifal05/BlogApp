@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import AuthService from '../services/Auth';
+import AuthService from '../services/Auth'
 import { useDispatch } from "react-redux"
-import { login } from '../store/AuthSlice';
+import { login , logout } from '../store/AuthSlice'
 import { Link, useNavigate } from "react-router-dom"
 
 const Signup = () => {
@@ -16,6 +16,21 @@ const Signup = () => {
 
     async function Create(data) {
         setError("");
+        
+        //Below to check If a session is already active so delete that session
+        let alreadyLoginCheck = await AuthService.GetCurrentUser();
+        if(alreadyLoginCheck) {
+            try {
+                let alredayUserResponse = await AuthService.Logout();
+                if(alredayUserResponse) {
+                    despatch(logout());
+                    despatch(removePosts());
+                }
+            } catch (error) {
+                console.log("An Error Occured : ",error);
+            }
+        }
+
         try {
             let response = await AuthService.CreateAccount(data);
             if(response) {

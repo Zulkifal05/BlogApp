@@ -16,6 +16,21 @@ const Login = () => {
 
   async function GetLogedIn(data) {
     setError("");
+
+    //Below to check If a session is already active so delete that session
+    let alreadyLoginCheck = await AuthService.GetCurrentUser();
+    if(alreadyLoginCheck) {
+        try {
+            let alredayUserResponse = await AuthService.Logout();
+            if(alredayUserResponse) {
+                dispatch(logout());
+                dispatch(removePosts());
+            }
+        } catch (error) {
+            console.log("An Error Occured : ",error);
+        }
+    }
+
     try {
       let response = await AuthService.Login(data);
       if(response) {

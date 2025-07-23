@@ -44,6 +44,7 @@ const ProtectedRoute = ({children}) => {
   if(renderChild) return <>
     {children}
   </>
+  
 }
 
 export default ProtectedRoute
