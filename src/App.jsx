@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import  Login  from "./pages/Login"
 import CreatePost from './pages/CreatePost'
 import EditPost from "./pages/EditPost"
+import MyPosts from './pages/MyPosts'
 
 const App = () => {
 
@@ -13,6 +14,7 @@ const App = () => {
       <Header />
       {/* <EditPost /> */}
       {/* <Home /> */}
+      <MyPosts />
       {/* <Login /> */}
       {/* <CreatePost /> */}
       {/* <Login /> */}
