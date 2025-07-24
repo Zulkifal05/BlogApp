@@ -11,11 +11,11 @@ const LogoutBtn = () => {
 
     async function HandleLogOut() {
         try {
+            dispatch(removePosts());
             let response = await AuthService.Logout();
             if(response) {
                 dispatch(logout());
-                dispatch(removePosts());
-                navigate("/Signup")
+                navigate("/Signup");
             }
         } catch (error) {
             console.log("An Error Occured : ",error);

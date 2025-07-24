@@ -12,7 +12,6 @@ const Header = () => {
               <h1 className='font-bold text-orange-500 text-4xl cursor-pointer'>Blogify</h1>
            </Link>
       </div>
-      {(location.pathname !== "/Signup" && location.pathname !== "/Login") && 
       <div className='grow-2 flex items-center justify-evenly text-white font-bold text-xl'>
           {location.pathname !== "/My-Posts" && <NavLink to="/My-Posts">
             <button className='cursor-pointer hover:text-orange-300'>My Posts</button>
@@ -23,7 +22,7 @@ const Header = () => {
           <div className='flex justify-center items-center'>
             <LogoutBtn />
           </div>
-      </div>}
+      </div>
     </div>
   )
 }

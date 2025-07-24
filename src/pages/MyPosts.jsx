@@ -13,7 +13,7 @@ const MyPosts = () => {
     let userPostsReduxData = useSelector((state) => state.posts);
 
 
-    useEffect(() => {
+    useEffect(() => {        
         async function FetchUserPosts() {
             setIsloading(true);
             if(userPostsReduxData.userPostsFetchedStatus) {

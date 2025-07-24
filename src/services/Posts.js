@@ -84,8 +84,12 @@ class Posts {
                 )
             }
         } catch (error) {
-            console.log("An Error Occured : ",error);
-            return false;
+            if (error.code === 401) {  //This for expected error
+                return null;
+              } else {
+                console.error("Unexpected Appwrite error:", error);
+            }
+            return null;
         }
     }
 

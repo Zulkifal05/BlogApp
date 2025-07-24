@@ -11,7 +11,7 @@ const Home = () => {
   let dispatch = useDispatch();
   let postsReduxData = useSelector((state) => state.posts);
 
-  useEffect(() => {
+  useEffect(() => {    
     async function FetchAllPosts() {
       setIsLoading(true);
       if(postsReduxData.postsFetchedStatus) {
@@ -29,7 +29,7 @@ const Home = () => {
     }
 
     FetchAllPosts();
-  },[postsReduxData])
+  },[])
 
   if(isLoading) return <Container>
     <p className='font-bold text-gray-800 text-2xl'>Loading Posts.....</p>

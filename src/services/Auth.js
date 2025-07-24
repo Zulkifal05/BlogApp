@@ -46,7 +46,11 @@ class AppwriteAuthService {
         try {
             return await this.account.get();
         } catch (error) {
-            console.log("An Error Occured : ",error);
+            if (error.code === 401) {  //This for expected error if no session already active
+                return null;
+              } else {
+                console.error("Unexpected Appwrite error:", error);
+            }
         }
         return null;
     }

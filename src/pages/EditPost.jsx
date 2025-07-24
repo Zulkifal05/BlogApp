@@ -6,7 +6,7 @@ const EditPost = () => {
   let { state } = useLocation();
   let [toEditPost,setToEditPost] = useState({});
 
-  useEffect(() => {
+  useEffect(() => {    
     if(state.post) {
       setToEditPost(state.post)
     }

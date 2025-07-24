@@ -8,11 +8,16 @@ import EditPost from "../pages/EditPost"
 import Login from "../pages/Login"
 import Signup from "../pages/Signup"
 import SinglePostPreview from "../pages/SinglePostPreview"
+import AuthRouteLayout from "./AuthRouteLayout"
 
 export const routes = createBrowserRouter([
     {
         path : "/",
-        element : <App />,
+        element : (
+            <ProtectedRoute>
+                <App />
+            </ProtectedRoute>
+        ),
         children : [
             {
                 path : "/",
@@ -21,14 +26,6 @@ export const routes = createBrowserRouter([
                         <Home />
                     </ProtectedRoute>
                 ),
-            },
-            {
-                path : "/Login",
-                element : <Login />
-            },
-            {
-                path : "/Signup",
-                element : <Signup />
             },
             {
                 path : "/My-Posts",
@@ -63,5 +60,21 @@ export const routes = createBrowserRouter([
                 )
             }
         ]
-    }
+    },
+    {
+        path : "/Login",
+        element : (
+            <AuthRouteLayout>
+                <Login />
+            </AuthRouteLayout>
+        )
+    },
+    {
+        path : "/Signup",
+        element : (
+            <AuthRouteLayout>
+                <Signup />
+            </AuthRouteLayout>
+        )
+    },
 ])
