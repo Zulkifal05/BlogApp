@@ -78,7 +78,7 @@ const Signup = () => {
 
                 <input
                  className='border-2 border-gray-800 outline-none px-[13%] py-2 rounded-xl'
-                 type="text" 
+                 type="password" 
                  placeholder='Password'
                  {...register("password",{
                     required : "Password is required",
