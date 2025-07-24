@@ -1,6 +1,6 @@
 # Blogify 📝
 
-*Blogify* is a modern blog application built using *React + Vite* with *Appwrite* as the backend. It allows users to *create, **read, **update, and **delete* blog posts. The app demonstrates key concepts in React development, including *React Router DOM, **Redux Toolkit, **React Redux, and **React Hook Form*.
+*Blogify* is a modern blog application built using *React + Vite* with *Appwrite* as the backend. It allows users to *create*, *read*, *update*, and *delete* blog posts. The app demonstrates key concepts in React development, including *React Router DOM, *Redux Toolkit*, *React Redux*, and *React Hook Form*.
 
 ---
 
@@ -11,7 +11,7 @@
 - *React Router DOM* – for client-side routing
 - *Redux Toolkit & React Redux* – for global state management
 - *React Hook Form* – for efficient form handling and validation
-- *Tailwind CSS* (optional) – for styling (if used)
+- *Tailwind CSS* – for styling
 
 ### Backend:
 - *Appwrite* – for user authentication, database, and storage
