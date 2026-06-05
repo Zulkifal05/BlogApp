@@ -30,5 +30,5 @@
 ---
 
 ### Project Demo
-  *Video Link* : https://www.linkedin.com/posts/syed-zulkifal-ali-shah-514b76338_reactjs-vite-reduxtoolkit-activity-7354087230358913025-coG4?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFTj5mABZdQFZZyZZs8Rb8oDyEHOor-UJLg
+  Video Link : https://www.linkedin.com/posts/syed-zulkifal-ali-shah-514b76338_reactjs-vite-reduxtoolkit-activity-7354087230358913025-coG4?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFTj5mABZdQFZZyZZs8Rb8oDyEHOor-UJLg
 ---
